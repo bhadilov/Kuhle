@@ -1,4 +1,4 @@
-package CucumberTests;
+package test;
 
 import com.thoughtworks.selenium.*;
 
@@ -24,22 +24,27 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class example {
 	
 	private WebDriver driver;
-	private ScreenshotListener screenshotHelper;
+
+	SeleniumTest sel = new SeleniumTest();
 	
 	@Before
 	public void openBrowser(){
 		driver  = new FirefoxDriver();
 		driver.get("http://hrm.seleniumminutes.com");
-		screenshotHelper = new ScreenshotListener(null, null);
+
 	}
 	@Test
 	public void testWebsite(){
 		Assert.assertEquals("Verify Title", driver.getTitle(), "OrangeHRM");
+		login();
+		Assert.assertTrue(driver.findElement(By.id("welcome")).isDisplayed());	
+		
+	}
+	public void login() {
 		driver.findElement(By.id("txtUsername")).sendKeys("admin");
 		driver.findElement(By.id("txtPassword")).sendKeys("Password");
 		driver.findElement(By.id("btnLogin")).click();
-		
-		Assert.assertTrue(driver.findElement(By.id("welcome")).isDisplayed());	
+		Utility.captureScreenshot(driver, "say cheeeeeese");
 	}
 
 	@After

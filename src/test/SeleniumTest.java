@@ -1,16 +1,12 @@
-package CucumberTests;
+package test;
 
 import static org.junit.Assert.*;
-
 import java.awt.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.junit.BeforeClass;
-//import org.apache.bcel.generic.Select;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,7 +24,6 @@ public class SeleniumTest {
 	public static void openBrowser() {
 		
 		driver  = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		driver.get("http://m-net.dstv.com/South/home");
 		
 	}
@@ -36,14 +31,14 @@ public class SeleniumTest {
 	@Test
 	public void verifyOnHomePage(){
 		
-		System.out.println("Starting test " +new Object(){}.getClass().getEnclosingMethod().getName());
-		assertTrue(driver.getTitle().contains("M-Net |"));
-		Assert.assertTrue(driver.findElement(By.xpath("/html/body/div[4]/div/div[2]/div/week-list/div/h2/span")).isDisplayed());
+		getTestNAme();
+		//driver.findElement(By.xpath("/html/body/div[4]/div/div[2]/div/week-list/div/h2/span"));
+		Assert.assertTrue(MyTitle().contains("M-Net |"));
 	
 	}
 	@Test
 	public void verifylocalcontent() throws InterruptedException{
-		System.out.println("Starting test " +new Object(){}.getClass().getEnclosingMethod().getName());
+		getTestNAme();
 		driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[3]/a")).click();
 		
 		WebDriverWait wait = new WebDriverWait(driver, 5);
@@ -53,18 +48,14 @@ public class SeleniumTest {
 		
 	}
 	
-	
-	/*@Test
-	public void inValid_User()
+	public String MyTitle()
+	{
+		return driver.getTitle();
+	}
+	public void getTestNAme()
 	{
 		System.out.println("Starting test " +new Object(){}.getClass().getEnclosingMethod().getName());
-		driver.get("http://m-net.dstv.com/South/home");
-		driver.findElement(By.className("account_icon")).click();
-		driver.findElement(By.id("log")).sendKeys("testuser_3");
-		driver.findElement(By.id("pwd")).sendKeys("Password");
-		driver.findElement(By.id("rememberme")).click();
-		driver.quit();
-	}*/
+	}
 	
 	@AfterClass
 	public static void closeBrowser(){
